@@ -53,7 +53,7 @@ fun CharacterImageCarousel(
 
 @Preview(showBackground = true)
 @Composable
-fun ProductImageCarouselPreview() {
+fun CharacterImageCarouselPreview() {
     RickAndMortyCharacterViewerTheme() {
         CharacterImageCarousel()
     }

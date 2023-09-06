@@ -2,6 +2,7 @@ package com.rickandmortycharacterviewer.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -25,15 +26,17 @@ fun CharacterHeader(
     modifier: Modifier = Modifier,
     imageUrl: String = "",
     name: String = "",
-    releaseDate: String = "",
+    status: String = "",
+    species: String = ""
 ) {
     ConstraintLayout(
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     ) {
         val (
             photoAvatar,
             nameText,
-            titleText,
+            statusText,
+            speciesText,
         ) = createRefs()
         val imagePainter = rememberAsyncImagePainter(
             model = imageUrl,
@@ -43,13 +46,14 @@ fun CharacterHeader(
             painter = imagePainter,
             contentDescription = name,
             modifier = Modifier
-                .size(96.dp)
+                .size(180.dp)
                 .clip(CircleShape)
                 .border(1.dp, MaterialTheme.colors.secondary, CircleShape)
                 .constrainAs(photoAvatar) {
                     start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                     top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
+                    bottom.linkTo(nameText.top)
                 },
         )
         Text(
@@ -60,21 +64,40 @@ fun CharacterHeader(
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .constrainAs(nameText){
-                    start.linkTo(photoAvatar.end, 16.dp)
-                    top.linkTo(parent.top)
+                    start.linkTo(parent.start, 16.dp)
+                    end.linkTo(parent.end,16.dp)
+                    top.linkTo(photoAvatar.bottom,16.dp)
+                    bottom.linkTo(statusText.top)
                 }
         )
         Text(
-            text = releaseDate,
+            text = status,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.constrainAs(titleText){
-                start.linkTo(photoAvatar.end, 16.dp)
-                top.linkTo(nameText.bottom, 4.dp)
+            modifier = Modifier.constrainAs(statusText){
+                start.linkTo(parent.start, 16.dp)
+                end.linkTo(parent.end,16.dp)
+                top.linkTo(nameText.bottom, 8.dp)
+                bottom.linkTo(speciesText.top)
             }
         )
+
+        Text(
+            text = species,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.constrainAs(speciesText){
+                start.linkTo(parent.start, 16.dp)
+                end.linkTo(parent.end,16.dp)
+                top.linkTo(statusText.bottom,8.dp)
+               // bottom.linkTo(speciesText.top)
+            }
+        )
+
     }
 }
 
