@@ -2,18 +2,18 @@ package com.rickandmortycharacterviewer.network.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.rickandmortycharacterviewer.domain.model.Character
+import com.rickandmortycharacterviewer.domain.model.CharacterDetails
 import com.rickandmortycharacterviewer.domain.model.CharacterResponse
 
 class APIPagingSource(
     private val response: suspend (Int) -> CharacterResponse,
-) : PagingSource<Int, Character>() {
+) : PagingSource<Int, CharacterDetails>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, CharacterDetails>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterDetails> {
         return try {
             val nextPage = params.key ?: 1
             val gamesList = response.invoke(nextPage)

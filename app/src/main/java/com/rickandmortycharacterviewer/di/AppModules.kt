@@ -1,5 +1,6 @@
 package com.rickandmortycharacterviewer.di
 
+import com.rickandmortycharacterviewer.BuildConfig
 import com.rickandmortycharacterviewer.domain.repository.RickyAndMortyRepository
 import com.rickandmortycharacterviewer.network.repository.RickyAndMortyRepositoryImpl
 import com.rickandmortycharacterviewer.network.service.APIService
@@ -22,7 +23,7 @@ class AppModules {
 
     @Provides
     @Named("WEB_API")
-    fun provideWebAPI(): String = WEB_API
+    fun provideWebAPI(): String = BuildConfig.BASE_URL
 
     @Provides
     @Named("KEY_API")

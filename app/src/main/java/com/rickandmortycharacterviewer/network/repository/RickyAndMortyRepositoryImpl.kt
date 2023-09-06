@@ -3,7 +3,7 @@ package com.rickandmortycharacterviewer.network.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.rickandmortycharacterviewer.domain.model.Character
+import com.rickandmortycharacterviewer.domain.model.CharacterDetails
 import com.rickandmortycharacterviewer.domain.repository.RickyAndMortyRepository
 import com.rickandmortycharacterviewer.network.pagingsource.APIPagingSource
 import com.rickandmortycharacterviewer.network.service.APIService
@@ -21,7 +21,7 @@ class RickyAndMortyRepositoryImpl @Inject constructor(
     private val pageSize: Int,
     private val apiKey: String,
 ): RickyAndMortyRepository {
-    override fun getAllCharacter(): Flow<PagingData<Character>> = Pager(
+    override fun getAllCharacter(): Flow<PagingData<CharacterDetails>> = Pager(
         config = PagingConfig(
             pageSize = pageSize,
             enablePlaceholders = true
@@ -29,8 +29,7 @@ class RickyAndMortyRepositoryImpl @Inject constructor(
         pagingSourceFactory = {
             APIPagingSource(
                 response = { pageNext ->
-                    APIService.getAllGames(
-                        key = apiKey,
+                    APIService.getAllCharacters(
                         page = pageNext,
                         pageSize = pageSize,
                     )
@@ -39,11 +38,10 @@ class RickyAndMortyRepositoryImpl @Inject constructor(
         }
     ).flow
 
-    override fun getCharacterDetails(id: Int): Flow<Response<Character>> = flow{
+    override fun getCharacterDetails(id: Int): Flow<Response<CharacterDetails>> = flow{
         try {
             emit(Response.Loading)
-            val responseApi = APIService.getGamesDetail(
-                key = apiKey,
+            val responseApi = APIService.getCharacterDetailsById(
                 id = id
             )
             emit(Response.Success(responseApi))
