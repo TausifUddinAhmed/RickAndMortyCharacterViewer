@@ -6,7 +6,6 @@ import com.rickandmortycharacterviewer.network.repository.RickyAndMortyRepositor
 import com.rickandmortycharacterviewer.network.service.APIService
 import com.rickandmortycharacterviewer.utils.Const.KEY_API
 import com.rickandmortycharacterviewer.utils.Const.PAGE_SIZE
-import com.rickandmortycharacterviewer.utils.Const.WEB_API
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

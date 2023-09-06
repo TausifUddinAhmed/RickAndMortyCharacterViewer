@@ -20,12 +20,7 @@ class APIPagingSource(
             LoadResult.Page(
                 data = gamesList.results,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = gamesList
-                    .next
-                    ?.substringAfter("page=")
-                    ?.substringBefore("&")
-                    ?.toInt() ?: nextPage
-            )
+                nextKey = gamesList.results.lastOrNull()?.id!! + 1)
         } catch (exception: Exception) {
             return LoadResult.Error(exception)
         }

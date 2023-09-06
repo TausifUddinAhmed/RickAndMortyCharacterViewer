@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.rickandmortycharacterviewer.domain.model.CharacterDetails
+import com.rickandmortycharacterviewer.domain.model.CharacterResponse
 import com.rickandmortycharacterviewer.domain.repository.RickyAndMortyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

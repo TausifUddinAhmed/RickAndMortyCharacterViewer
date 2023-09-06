@@ -1,21 +1,25 @@
 package com.rickandmortycharacterviewer
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.rickandmortycharacterviewer.fragment.detail.DetailFragment
+import com.rickandmortycharacterviewer.fragment.characters.CharactersFragment
 import com.rickandmortycharacterviewer.ui.theme.RickAndMortyCharacterViewerTheme
-import com.rickandmortycharacterviewer.viewmodel.CharacterDetailsViewModel
-import com.rickandmortycharacterviewer.viewmodel.CharactersViewModel
+import com.rickandmortycharacterviewer.utils.Const.DETAIL_ARG_CHARACTER_ID
+import com.rickandmortycharacterviewer.utils.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +33,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+
+                    RickyAndMortyCharacterViewerAppScreen()
+
+                    // Greeting("Android")
                     /*var charactersViewModel: CharactersViewModel = hiltViewModel()
                     var characterResponse =  charactersViewModel.characterListState.collectAsLazyPagingItems()
                     Log.e("characterResponse", characterResponse.toString())
@@ -44,15 +51,47 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun RickyAndMortyCharacterViewerAppScreen() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = Route.Character.route,
+    ) {
+        composable(route = Route.Character.route) {
+            CharactersFragment(
+                onClickToDetailScreen = { gamesId ->
+                    navController.navigate(
+                        Route.Detail.createRoute(gamesId)
+                    )
+                }
+            )
+        }
+        composable(
+            route = Route.Detail.route,
+            arguments = listOf(
+                navArgument(DETAIL_ARG_CHARACTER_ID){
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val characterId = backStackEntry.arguments?.getInt(DETAIL_ARG_CHARACTER_ID)
+            requireNotNull(characterId) { "characterId parameter wasn't found. Please make sure it's set!" }
+            DetailFragment(id = characterId)
+        }
+    }
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DefaultPreview() {
+fun JetpackComposeAppScreenPreview() {
     RickAndMortyCharacterViewerTheme {
-        Greeting("Android")
+        RickyAndMortyCharacterViewerAppScreen()
     }
 }
+
+
+

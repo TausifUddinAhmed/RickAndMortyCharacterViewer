@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">RickAndMortyCharacterViewer</string>
+    <string name="app_name">Rick And Morty Character Viewer</string>
+    <string name="error_message">something went wrong</string>
 </resources>
