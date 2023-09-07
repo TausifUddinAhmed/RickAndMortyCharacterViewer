@@ -67,7 +67,7 @@ fun CharactersScreen(
                     loadState.refresh is LoadState.Error || loadState.append is LoadState.Error -> {
                         ErrorButton(
                             modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(id = R.string.error_message),
+                            text = stringResource(id = R.string.no_data_found),
                             onClick = {
                                 retry()
                             }

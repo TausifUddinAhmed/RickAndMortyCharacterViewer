@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Rick And Morty Character Viewer</string>
     <string name="error_message">something went wrong</string>
+    <string name="no_data_found">No data found</string>
 </resources>
