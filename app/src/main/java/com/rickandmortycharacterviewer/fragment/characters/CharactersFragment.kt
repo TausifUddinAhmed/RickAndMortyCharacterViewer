@@ -28,6 +28,7 @@ fun CharactersFragment(
         CharactersScreen(
             modifier = Modifier
                 .padding(
+                    vertical = 16.dp,
                     horizontal = 16.dp
                 ),
             characterList = charactersViewModel.characterListState.collectAsLazyPagingItems(),

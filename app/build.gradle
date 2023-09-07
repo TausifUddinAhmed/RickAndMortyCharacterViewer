@@ -47,6 +47,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
 }
 
 dependencies {
@@ -81,14 +82,23 @@ dependencies {
     implementation 'androidx.compose.material3:material3:1.1.1'
     kapt "com.google.dagger:hilt-android-compiler:$dagger_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_version"
-    // Unit Test
-    testImplementation "junit:junit:$junit_version"
-    // UI Test
-    androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$test_expresso_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    // Debug
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    //Testing
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:2.11.0'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation "com.google.truth:truth:1.1"
+
+    // for coroutine handling
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
+// turbine for testing the flows
+    testImplementation 'app.cash.turbine:turbine:1.0.0'
+
+// For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:2.28-alpha")
+// For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.28-alpha")
+// ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:2.40.5")
 
 }

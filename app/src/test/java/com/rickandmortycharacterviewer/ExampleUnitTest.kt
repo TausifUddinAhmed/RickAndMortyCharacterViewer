@@ -1,5 +1,10 @@
 package com.rickandmortycharacterviewer
 
+import com.rickandmortycharacterviewer.repository_test.FakeCharacterListRepository
+import com.rickandmortycharacterviewer.domain.model.CharacterDetails
+import com.rickandmortycharacterviewer.utils.Response
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*

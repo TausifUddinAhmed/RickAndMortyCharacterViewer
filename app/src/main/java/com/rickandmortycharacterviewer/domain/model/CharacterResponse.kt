@@ -9,6 +9,8 @@ data class CharacterResponse(
     @field:SerializedName("previous")
 	val previous: String? = null,
 
+    @field:SerializedName("pages")
+    val pages: Int,
     @field:SerializedName("count")
 	val count: Int,
 

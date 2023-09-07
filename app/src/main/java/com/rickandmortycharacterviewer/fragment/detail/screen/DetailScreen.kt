@@ -29,9 +29,9 @@ fun DetailScreen(
     val gender = characterDetails.gender ?: ""
     val status = characterDetails.status ?: ""
     val species = characterDetails.species ?: ""
-    val origin = characterDetails.origin.name
-    val location = characterDetails.location.name?:""
-    var type = characterDetails.type
+    val origin = characterDetails.origin!!.name
+    val location = characterDetails.location!!.name?:""
+    var type = characterDetails!!.type
     if(type.isNullOrEmpty()){
         type = "Not available"
     }
